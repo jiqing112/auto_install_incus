@@ -6,11 +6,21 @@
 set -e
 
 # 颜色定义
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# 检测终端是否支持颜色
+if [ -t 1 ] && command -v tput >/dev/null 2>&1 && [ $(tput colors) -ge 8 ]; then
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m' # No Color
+else
+    # 终端不支持颜色，使用空字符串
+    RED=''
+    GREEN=''
+    YELLOW=''
+    BLUE=''
+    NC=''
+fi
 
 # 日志函数
 log_info() {
@@ -296,27 +306,27 @@ show_completion() {
     
     if [ -n "$SUDO_USER" ]; then
         log_info "重要提示:"
-        echo "  请重新登录或运行以下命令使组权限生效:"
-        echo "  ${GREEN}newgrp incus-admin${NC}"
+        echo -e "  请重新登录或运行以下命令使组权限生效:"
+        echo -e "  ${GREEN}newgrp incus-admin${NC}"
         echo ""
     fi
     
     log_info "快速入门:"
     echo ""
     echo "  1. 创建 Ubuntu 22.04 容器:"
-    echo "     ${BLUE}incus launch images:ubuntu/22.04 my-container${NC}"
+    echo -e "     ${BLUE}incus launch images:ubuntu/22.04 my-container${NC}"
     echo ""
     echo "  2. 查看容器列表:"
-    echo "     ${BLUE}incus list${NC}"
+    echo -e "     ${BLUE}incus list${NC}"
     echo ""
     echo "  3. 进入容器:"
-    echo "     ${BLUE}incus exec my-container -- bash${NC}"
+    echo -e "     ${BLUE}incus exec my-container -- bash${NC}"
     echo ""
     echo "  4. 停止容器:"
-    echo "     ${BLUE}incus stop my-container${NC}"
+    echo -e "     ${BLUE}incus stop my-container${NC}"
     echo ""
     echo "  5. 删除容器:"
-    echo "     ${BLUE}incus delete my-container${NC}"
+    echo -e "     ${BLUE}incus delete my-container${NC}"
     echo ""
     log_info "更多信息: https://linuxcontainers.org/incus/"
     echo ""
