@@ -63,7 +63,8 @@ collect_config() {
     echo ""
     
     # 询问是否进行安装
-    read -p "是否继续安装 Incus? (y/n): " -r
+    read -p "是否继续安装 Incus? [Y/n]: " -r
+    REPLY=${REPLY:-Y}  # 如果为空，默认为 Y
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         log_warn "安装已取消"
         exit 0
@@ -71,7 +72,8 @@ collect_config() {
     echo ""
     
     # 询问是否进行初始化配置
-    read -p "是否在安装后自动初始化 Incus? (y/n) [推荐: y]: " -r
+    read -p "是否在安装后自动初始化 Incus? [Y/n]: " -r
+    REPLY=${REPLY:-Y}  # 如果为空，默认为 Y
     DO_INIT=$REPLY
     echo ""
     
@@ -104,7 +106,8 @@ collect_config() {
     echo "========================================"
     echo ""
     
-    read -p "确认以上配置并开始安装? (y/n): " -r
+    read -p "确认以上配置并开始安装? [Y/n]: " -r
+    REPLY=${REPLY:-Y}  # 如果为空，默认为 Y
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         log_warn "安装已取消"
         exit 0
