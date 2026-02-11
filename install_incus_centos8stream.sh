@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #######################################
-# Incus 一键安装脚本 for CentOS 8 (改进版)
+# Incus 一键安装脚本 for CentOS 8 stream(改进版)
 # 版本: 2.0
 # 作者: Claude
 # 日期: 2026-02-11
